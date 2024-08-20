@@ -50,3 +50,56 @@ You can modify the script to suit your workflow by:
 ## Troubleshooting
 * **GitHub Repository Creation Failure:** If the script fails to create the GitHub repository, verify your GitHub CLI configuration and SSH key setup.
 * **Virtual Environment:** If you're using a Python virtual environment, make sure to uncomment and adjust the appropriate lines in the script.
+=
+# `solved` Function
+This Bash function, `solved`, is designed to mark a kata (coding exercise) project as solved. It updates the project’s metadata, modifies the README file to reflect the new status, and commits these changes to the associated Git repository. This function is particularly useful for developers who use Git and GitHub to manage their coding kata projects.
+
+## Functionality
+The `solved` function performs the following steps:
+
+1. **Check for `.env` File:**
+The function first checks if a .env file exists in the current directory. The `.env` file stores project metadata, including the status of the kata. If the file is not found, the function will exit with an error message.
+
+2. **Verify Kata Project:**
+The function verifies that the current directory is a kata project by checking for the presence of `kata=true` in the `.env` file. If this is not a kata project, the function exits with an error.
+
+3. **Check Solved Status:**
+The function checks whether the kata has already been marked as solved. If it has, the function will notify the user and exit without making any changes.
+
+4. **Mark the Kata as Solved:**
+If the kata has not yet been marked as solved, the function updates the `.env` file, changing `solved=false` to `solved=true`.
+
+5. **Update the README.md File:**
+If a `README.md` file is present, the function updates the header to indicate that the project is solved (e.g., from `# ProjectName NOT SOLVED` to `# ProjectName SOLVED`). If the `README.md` file is not found, the function issues a warning but continues execution.
+
+6. **Commit and Push Changes:**
+The function stages the modified `.env` and `README.md` files, commits them with the message "Marked kata as solved," and pushes the commit to the remote GitHub repository.
+
+## Usage
+To use this function:
+
+1. **Ensure the .env file is present** in the project directory and that it contains the kata=true and solved=false entries.
+2. **Navigate to the directory** where your kata project is located.
+3. **Run the function** by executing the script or sourcing it in your terminal:
+```bash
+./script_with_solved_function.sh
+```
+4. Execute the solved function:
+```bash
+solved
+```
+Upon successful execution, the kata will be marked as solved, the `README.md` will be updated, and the changes will be committed and pushed to your GitHub repository.
+
+## Error Handling
+* **Missing .env File:** The function will exit with an error message if the .env file is not found.
+* **Non-Kata Project:** If the current directory is not a kata project, the function will exit with an error.
+* **Already Solved:** The function will notify the user if the kata is already marked as solved and will exit without making changes.
+## Requirements
+* **Git:** Ensure Git is installed and configured for the project.
+* **GitHub CLI (Optional):** For automatic pushing to GitHub, ensure your repository is set up correctly with GitHub.
+## Customization
+You can modify this function to:
+
+* Handle additional project types.
+* Customize the commit message.
+* Include additional file updates or checks.
