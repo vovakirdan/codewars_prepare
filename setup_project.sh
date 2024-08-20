@@ -40,6 +40,7 @@ clean:
 EOL
         # Create a main source file
         touch main.c
+        echo "*.o" > .gitignore
         [ "$language" == "C++" ] && mv main.c main.cpp
 
     elif [ "$language" == "Python" ] || [ "$language" == "python" ]; then
@@ -57,7 +58,7 @@ EOL
     git commit -m "Initial commit"
 
     # 5) Setup GitHub repo (optional step, requires user interaction to set up SSH keys, etc.)
-    echo "# ${project_name} NOT SOLVED" > README.md
+    echo "# ${project_name} difficulty ${object_name} NOT SOLVED" > README.md
     git add README.md
     git commit -m "Added README.md"
     gh repo create "${repo_name}" --public
