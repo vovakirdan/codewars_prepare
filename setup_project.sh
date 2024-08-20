@@ -18,6 +18,7 @@ function new() {
     echo "kata=true" > .env
     echo "kata_link=${kata_link}" >> .env
     echo "difficulty=${object_name}" >> .env
+    echo "project_name=${repo_name}" >> .env
     echo "solved=false" >> .env
 
     # 3) Language specific setup
@@ -61,11 +62,11 @@ EOL
     echo "# ${project_name} difficulty ${object_name} NOT SOLVED" > README.md
     git add README.md
     git commit -m "Added README.md"
-    gh repo create "${repo_name}" --public
+    gh repo create "${repo_name}" --public -d "${project_name} ${object_name} ${language}"
     if [ $? -eq 0 ]; then
-        # git remote add origin "https://github.com/vovakirdan/${repo_name}.git"
+        #git remote add origin "https://github.com/vovakirdan/${repo_name}.git"
         git checkout -b main
-        git push -u origin main
+        #git push --set-upstream origin main
         echo "Project '${project_name}' initialized and pushed to GitHub successfully!"
     else
         echo "Failed to create the GitHub repository. Please check your GitHub CLI configuration."
