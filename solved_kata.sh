@@ -26,17 +26,19 @@ function solved() {
     sed -i 's/solved=false/solved=true/' "$env_file"
 
     # 5) Update the README.md to reflect the solved status
-    if [ -f "$readme_file" ]; then
-        project_name=$(grep -m 1 "^# " "$readme_file" | cut -d' ' -f2-)
-        sed -i "s/# ${project_name} NOT SOLVED/# ${project_name} SOLVED/" "$readme_file"
-    else
-        echo "Warning: README.md not found."
-    fi
+    #if [ -f "$readme_file" ]; then
+    #    project_name=$(grep -m 1 "^# " "$readme_file" | cut -d' ' -f2-)
+    #    sed -i "s/# ${project_name} NOT SOLVED/# ${project_name} SOLVED/" "$readme_file"
+    #else
+    #    echo "Warning: README.md not found."
+    #fi
 
     # 6) Commit and push the changes
+    project_name=$(grep "^project_name=" .env | cut -d '=' -f2-)
     git add "$env_file" "$readme_file"
     git commit -m "Marked kata as solved"
-    git push
+    git remote add origin "https://github.com/vovakirdan/${project_name}.git"
+    git push --set-upstream origin main
 
     echo "Kata marked as solved and changes pushed to GitHub!"
 }
