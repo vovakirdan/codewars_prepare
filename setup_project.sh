@@ -57,12 +57,13 @@ EOL
     git commit -m "Initial commit"
 
     # 5) Setup GitHub repo (optional step, requires user interaction to set up SSH keys, etc.)
-    gh repo create "${repo_name}" --public --confirm
     echo "# ${project_name} NOT SOLVED" > README.md
     git add README.md
     git commit -m "Added README.md"
+    gh repo create "${repo_name}"
     if [ $? -eq 0 ]; then
-        git remote add origin "https://github.com/vovakirdan/${repo_name}.git"
+        # git remote add origin "https://github.com/vovakirdan/${repo_name}.git"
+        git checkout -b main
         git push -u origin main
         echo "Project '${project_name}' initialized and pushed to GitHub successfully!"
     else
