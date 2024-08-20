@@ -60,7 +60,7 @@ EOL
     echo "# ${project_name} NOT SOLVED" > README.md
     git add README.md
     git commit -m "Added README.md"
-    gh repo create "${repo_name}"
+    gh repo create "${repo_name}" --public
     if [ $? -eq 0 ]; then
         # git remote add origin "https://github.com/vovakirdan/${repo_name}.git"
         git checkout -b main
